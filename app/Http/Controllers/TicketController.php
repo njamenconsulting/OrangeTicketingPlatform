@@ -7,8 +7,6 @@ use App\Repositories\TicketRepositoryInterface;
 use App\Repositories\Eloquent\TicketRepository; 
 use App\Repositories\RoleRepositoryInterface; 
 use App\Repositories\Eloquent\RoleRepository; 
-use App\Repositories\UserRepositoryInterface; 
-use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -25,11 +23,11 @@ class TicketController extends Controller
   
     public function __construct(TicketRepositoryInterface $ticketRepository,
                                 RoleRepositoryInterface $roleRepository,
-                                UserRepositoryInterface $userRepository)
+                                )
     {
         $this->ticketRepository = $ticketRepository;
         $this->roleRepository = $roleRepository;
-        $this->userRepository = $userRepository;
+
     }
     /**
      * Display view of all tickets where a Dispatcher will assign this tickets to Agent
