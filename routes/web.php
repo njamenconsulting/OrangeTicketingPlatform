@@ -32,10 +32,11 @@ Route::post('tickets/store', [TicketController::class, 'store'])->name('ticket-s
 //ACCESS BY ANY AUTHENTICATED USER
  Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-//ACCESS BY DISPATCHER AND AGENT AFTER AUTHENTIFICATION
+//ACCESS BY DISPATCHER AFTER AUTHENTIFICATION
 Route::get('home/tickets/dispatchers', [TicketController::class, 'getTicketToDispatch'])->name('dispatchers')->middleware('auth');
 Route::put('home/tickets/dispatchers', [TicketController::class, 'setTicketToAgent'])->name('dispatchers')->middleware('auth');
 
+//ACCESS BY AGENT AFTER AUTHENTIFICATION
 Route::get('home/tickets/closures', [TicketController::class, 'getTicketToClosure'])->name('closures')->middleware('auth');
 Route::put('home/tickets/closures', [TicketController::class, 'setStatusOfTicket'])->name('closures')->middleware('auth');
 
