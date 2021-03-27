@@ -29,11 +29,8 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         // custome direction
         Blade::if('admin', function () {
+            
             return auth()->check() && auth()->user()->isAdmin();
-          
-         // admin is just a directive name that i want to create
-       // return korbe authentication check korbe login ache kina
-       // && auth () jodi login means user hoy ebong er role ID 1 kina 
           
         });
         
