@@ -7,8 +7,7 @@ use App\Repositories\TicketRepositoryInterface;
 use App\Repositories\Eloquent\TicketRepository; 
 use App\Repositories\RoleRepositoryInterface; 
 use App\Repositories\Eloquent\RoleRepository; 
-use App\Repositories\UserRepositoryInterface; 
-use App\Repositories\Eloquent\UserRepository;
+
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +27,7 @@ class TicketController extends Controller
     {
         $this->ticketRepository = $ticketRepository;
         $this->roleRepository = $roleRepository;
-        $this->userRepository = $userRepository;
+
     }
     /**
      * Display view of all tickets where a Dispatcher will assign this tickets to Agent
@@ -101,7 +100,9 @@ class TicketController extends Controller
      */
     public function setTicketToAgent(Request  $request)
     {
-        
+        if ($request->user()->cannot('getTicketToDispatch', Ticket::class)) {
+            abort(403);
+        }       
         if(isset($_POST['set-ticket-to-agent'])){
             //
             $ticketID = $request->ticket_id ; //Retrieve ID of ticket that is will updated
@@ -156,6 +157,11 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function setStatusOfTicket(Request  $request){
+
+        if ($request->user()->cannot('getTicketToClosure', Ticket::class)) {
+            abort(403);
+        }
+
         //We ensure that Auth user is effecti
         if(Auth::id() == $request->userId){
             // Retrieve ticket ID of specific handled ticket

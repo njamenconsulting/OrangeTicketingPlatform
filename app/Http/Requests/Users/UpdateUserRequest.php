@@ -4,8 +4,9 @@ namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\IsValidPassword;
+use Illuminate\Validation\Rule;
 
-class CreateUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +27,7 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required','string','email','max:255','unique:users'],
+            'email' => ['required','string','email','max:255', Rule::unique('users', 'email')->ignore($this->user) ],
             'phone' => ['bail','required','regex:/^(2|6)([0-9]{8})$/'],
             //'password' => ['required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/', 'confirmed'],
             'password' => [
@@ -35,7 +36,6 @@ class CreateUserRequest extends FormRequest
                 'string',
                 new isValidPassword(),
             ],
-       
         ];
     }
 }

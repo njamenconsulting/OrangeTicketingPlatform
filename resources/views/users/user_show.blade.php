@@ -37,7 +37,7 @@
             </li>
         </ul>
 
-        <button name="set-role-to-user" value="set-role-to-user" type="submit" class="btn btn-dark btn mt-2" style="text-color: #FF7900;"><i class="fas fa-edit"></i> Edit my profile</button>
+        <a href="{{route('users.edit',['user' => $user->id ] )}}" type="submit" class="btn btn-dark btn mt-2" style="text-color: #FF7900;"><i class="fas fa-edit"></i> Edit my profile</a>
 
     </div>
 

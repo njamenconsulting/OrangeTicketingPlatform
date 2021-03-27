@@ -33,8 +33,8 @@ Route::post('tickets/store', [TicketController::class, 'store'])->name('ticket-s
  Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 //ACCESS BY DISPATCHER AFTER AUTHENTIFICATION
-Route::get('home/tickets/dispatchers', [TicketController::class, 'getTicketToDispatch'])->name('dispatchers')->middleware('auth');
-Route::put('home/tickets/dispatchers', [TicketController::class, 'setTicketToAgent'])->name('dispatchers')->middleware('auth');
+Route::get('home/tickets/dispatchers', [TicketController::class, 'getTicketToDispatch'])->name('dispatchers')->middleware('auth','can:getTicketToDispatch,ticket');
+Route::put('home/tickets/dispatchers', [TicketController::class, 'setTicketToAgent'])->name('dispatchers')->middleware('auth','can:setTicketToAgent,ticket');
 
 //ACCESS BY AGENT AFTER AUTHENTIFICATION
 Route::get('home/tickets/closures', [TicketController::class, 'getTicketToClosure'])->name('closures')->middleware('auth');

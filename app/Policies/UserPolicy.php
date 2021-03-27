@@ -9,6 +9,14 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    public function getDetailOfUser(User $user){
+        return $user -> isAdmin();
+    }
+    public function setRoleToUser(User $user){
+        return $user -> isAdmin();
+    }
+
+
     /**
      * Determine whether the user can view any models.
      *
@@ -17,7 +25,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user -> isAdmin();
     }
 
     /**
@@ -40,7 +48,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user -> isAdmin();
     }
 
     /**
@@ -65,7 +73,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        //
+        return $user -> isAdmin();
     }
 
     /**
@@ -77,7 +85,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        //
+        return $user -> isAdmin();
     }
 
     /**

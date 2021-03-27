@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Requests\Users\CreateUserRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -161,7 +162,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = $this->userRepository->getById($id)->toArray(); //dd($user);
+
+        return view('users.user_update',['user' => $user] );
     }
 
     /**
@@ -171,9 +174,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-         
+        $data = $request->all();
+        $user = $this->userRepository->update($data,$id);
+        return back() -> with('success', 'Congrat! Your profile has been updated successfully');
     }
 
     /**
