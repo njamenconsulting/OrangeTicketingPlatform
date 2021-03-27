@@ -30,7 +30,7 @@ Route::get('tickets/create', [TicketController::class, 'create'])->name('ticket-
 Route::post('tickets/store', [TicketController::class, 'store'])->name('ticket-store');
  
 //ACCESS BY ANY AUTHENTICATED USER
- Route::get('home', [HomeController::class, 'index'])->name('home');
+ Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 //ACCESS BY DISPATCHER AFTER AUTHENTIFICATION
 Route::get('home/tickets/dispatchers', [TicketController::class, 'getTicketToDispatch'])->name('dispatchers')->middleware('auth','can:getTicketToDispatch,App\Models\Ticket');
@@ -42,12 +42,12 @@ Route::put('home/tickets/closures', [TicketController::class, 'setStatusOfTicket
 
 /** ACCESS BY ADMIN  */
 //create new user
-Route::get('admin/users/create', [UserController::class, 'create'])->name('users-create');
-Route::post('admin/users/store', [UserController::class, 'store'])->name('users-store');
+Route::get('admin/users/create', [UserController::class, 'create'])->name('users-create')->middleware('auth','admin');
+Route::post('admin/users/store', [UserController::class, 'store'])->name('users-store')->middleware('auth','admin');
 //set role(s) to user
-Route::get('admin/users', [UserController::class, 'index'])->name('users-index');
-Route::get('admin/users/details/{id}', [UserController::class, 'getDetailOfUser']);
-Route::put('admin/users/set-role', [UserController::class, 'setRoleToUser'])->name('user-set-role');
+Route::get('admin/users', [UserController::class, 'index'])->name('users-index')->middleware('auth','admin');
+Route::get('admin/users/details/{id}', [UserController::class, 'getDetailOfUser'])->name('user-detail')->middleware('auth','admin');
+Route::put('admin/users/set-role', [UserController::class, 'setRoleToUser'])->name('user-set-role')->middleware('auth','admin');
 //Delete a user
 Route::delete('admin/users/destroy', [UserController::class, 'destroy'])->name('user-destroy')->middleware('auth','admin');
 
