@@ -60,7 +60,7 @@ class UserController extends Controller
         return view('users.user_update_role', [
             'user'   => User::find($id),
             'user_roles'  => (new User())->find($id)->roles,
-            'roles'  => Role::all()
+            'roles'  => $this->roleRepository->getNameColumnfromRole()
         ]);
     }
    
@@ -111,7 +111,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.user_create',['roles'=>(new Role())->all()]);
+        return view('users.user_create',['roles' => $this->roleRepository->getNameColumnfromRole()]);
     }
 
     /**
@@ -124,6 +124,7 @@ class UserController extends Controller
     {
  
         try {
+
             //$result = $this->UserRepository->create($request->all());
 
             $user = User::create($request->all());

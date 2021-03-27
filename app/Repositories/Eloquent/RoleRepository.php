@@ -40,4 +40,12 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
          
         return $users = $this->model->find($roleID['id'])->users()->orderBy('name')->get();
     }
+        /**
+     * Get values of name column without duplication form Role Table
+     * 
+     * @return model
+     */
+    public function getNameColumnfromRole(){
+        return $this->model->distinct()->get('name');//Get values of name column 
+    }
 }
