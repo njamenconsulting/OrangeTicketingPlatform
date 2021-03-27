@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,11 +29,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         // custome direction
-        Blade::if('admin', function () {
-            
-            return auth()->check() && auth()->user()->isAdmin();
-          
+        Blade::if('admin', function () {         
+            return auth()->check() && auth()->user()->isAdmin();          
         });
-        
+        //
+        Schema::defaultStringLength(191);
+
     }
 }
