@@ -129,7 +129,7 @@ class UserController extends Controller
                     'phone' => $request->phone,
                     'password' => Hash::make($request->password),
                 ];
-        $user = $this->UserRepository->create($ata);
+        $user = $this->userRepository->create($ata);
         //Attach roles 
         $user->roles()->attach($request->role_id);
 
