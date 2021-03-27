@@ -122,21 +122,17 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
- 
-        try {
+        //Retrieve input form data
+        $data = [   'name' => $request->name,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'password' => Hash::make($request->password),
+                ];
+        $user = $this->UserRepository->create($ata);
+        //Attach roles 
+        $user->roles()->attach($request->role_id);
 
-            //$result = $this->UserRepository->create($request->all());
-
-            $user = User::create($request->all());
-            $user->roles()->attach($request->role_id);
-
-        } catch (Exception $e) {
-  
-            return back()->with('error','An Error it\s occur!'.$e->getMessage());
-        }
-        //
-
-        return back()->with('success','New User has been created successfully!');
+        return back()->with('success','Congrat! A new user has been created successfuly');
 
     }
 
