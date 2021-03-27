@@ -60,8 +60,12 @@
             <i class="fas fa-ticket-alt"></i>
         </a>
         </h6>
-      
+       
+    <!-- The current user can update the post... -->
+
         <ul class="nav flex-column mb-2">
+
+            @can('getTicketToDispatch', App\Models\Ticket::class)
             <li class="nav-item">
             <a class="nav-link {{ request()-> routeIs( 'dispatchers',['status'=> 'Created'] ) ? 'active' : ''}}"
                aria-current="page" href="{{  route('dispatchers',['status'=> 'Created'] ) }}">
@@ -69,7 +73,8 @@
                   Dispatch Ticket(s)
                 </a>
             </li>
-    
+            @endcan
+            @can('getTicketToClosure', App\Models\Ticket::class)
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs( 'closures',['status'=> 'Started'] ) ? 'active' : ''}}"
                   aria-current="page" href="{{ route('closures',['status'=> 'Started'] ) }}">
@@ -77,6 +82,7 @@
                    Closure Ticket(s)
                 </a>
             </li>
+            @endcan
         </ul><!-- ../ TICKETS -->
   
         

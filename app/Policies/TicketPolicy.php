@@ -20,18 +20,18 @@ class TicketPolicy
     }
     //
     public function getTicketToDispatch(User $user){
-        //
+        return $user -> isDispatcher();
     }
     //
     public function setTicketToAgent(User $user){
-        //
+        return $user -> isDispatcher();
     }
     //
     public function getTicketToClosure(User $user){
-        //
+        return $user -> isAgent();
     }
     //
     public function setStatusOfTicket(User $user){
-        //
+        return $user -> isAgent();
     }
 }
