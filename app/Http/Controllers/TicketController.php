@@ -29,6 +29,47 @@ class TicketController extends Controller
         $this->roleRepository = $roleRepository;
 
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('tickets.ticket_create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CreateTicketRequest $request)
+    {
+        //Retrieve POST FORM DATA
+        $data = [
+            'title' => $request->ticketTitle,
+            'phone' => $request->ticketPhone,
+            'description' => $request->ticketDescription,
+            'status' => $request->ticketStatus,
+            'created_by' => $request->ip(),
+            'user_id'=> '5'
+        ];
+        //
+        try {                 
+            $result = $this->ticketRepository->create($data);
+        } catch (Exception $e) {
+
+            return back()->with('error','An Error it\s occur!'.$e->getMessage());
+        }
+        //
+        return back()->with('success','Your complaint has been sended successfully!');
+    }
+
+
+
     /**
      * Display view of all tickets where a Dispatcher will assign this tickets to Agent
      * 
